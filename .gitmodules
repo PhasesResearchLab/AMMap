@@ -1,0 +1,4 @@
+[submodule "nimplex"]
+	path = nimplex
+	url = https://github.com/amkrajewski/nimplex
+	branch = nimble
