@@ -1,0 +1,14 @@
+## NIM+Python gitignore
+*
+!LICENSE
+!Dockerfile
+!**/
+!*.*
+**/*.npy
+**/*.pyc
+htmldocs/
+*.so
+*.pyd
+.DS_Store
+smallTest.ipynb
+# Example Output Files
