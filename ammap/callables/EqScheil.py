@@ -4,9 +4,9 @@ from pycalphad.codegen.callables import build_phase_records
 
 # Problem Specific setup for our 9-element space exploration. Make sure that the elements 
 # are in the same order as the composition vector that will be passed to the equilibrium_callable.
-dbf = Database("CrHfMoNbTaTiVWZr_9element_Feb2023.tdb")
+dbf = Database("ammap/databases/Al-Cr-Fe-Ni-Ti-V_04-13.tdb")
 T = 1000
-elementalSpaceComponents = ['Ti', 'Zr', 'Hf', 'W', 'Nb', 'Ta', 'Mo']
+elementalSpaceComponents = ['V', 'Ni', 'Cr', 'Fe']
 
 # Setup the pycalphad models
 phases = list(set(dbf.phases.keys()))
