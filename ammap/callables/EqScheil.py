@@ -38,26 +38,26 @@ def equilibrium_callable(elP):
         pass
     return phasePresentList
 
-# # Some extra code for the future tutorial on Scheil solidification :)
-# from scheil import simulate_scheil_solidification
-# # Meta Settings
-# scheil_start_temperature = 3000
-# liquid_phase_name = 'LIQUID'
-# def scheil_callable(elP):
-#     elP_round = [round(v-0.000001, 6) if v>0.000001 else 0.0000001 for v in elP]
-#     initial_composition = {**dict(zip([v.X(el) for el in comps[:-2]], elP_round))}
-#     
-#     sol_res = simulate_scheil_solidification(
-#         dbf, comps, phases_filtered, 
-#         initial_composition, scheil_start_temperature, step_temperature=1.0)
-# 
-#     phaseFractions = {}
-#     for phase, ammounts in sol_res.cum_phase_amounts.items():
-#         finalAmmount = round(ammounts[-1], 6)
-#         if finalAmmount>0:
-#             phaseFractions.update({phase: finalAmmount})
-# 
-#     return phaseFractions.keys()
+# Some extra code for the future tutorial on Scheil solidification :)
+from scheil import simulate_scheil_solidification
+# Meta Settings
+scheil_start_temperature = 3000
+liquid_phase_name = 'LIQUID'
+def scheil_callable(elP):
+    elP_round = [round(v-0.000001, 6) if v>0.000001 else 0.0000001 for v in elP]
+    initial_composition = {**dict(zip([v.X(el) for el in comps[:-2]], elP_round))}
+    
+    sol_res = simulate_scheil_solidification(
+        dbf, comps, phases_filtered, 
+        initial_composition, scheil_start_temperature, step_temperature=1.0)
+
+    phaseFractions = {}
+    for phase, ammounts in sol_res.cum_phase_amounts.items():
+        finalAmmount = round(ammounts[-1], 6)
+        if finalAmmount>0:
+            phaseFractions.update({phase: finalAmmount})
+
+    return phaseFractions.keys()
 
 if __name__ == "main":
     pass
