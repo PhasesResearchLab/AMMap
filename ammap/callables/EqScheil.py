@@ -36,7 +36,10 @@ def equilibrium_callable(elP):
         # just pass and let the graph exploration scheme decide what to do about it.
         # print(f"Point: {elP_round} failed to converge.")
         pass
-    return phasePresentList
+    pFrac=eq_res.NP.data
+    return
+    'Phases':phasePresentList,
+    'PhaseFraction':pFrac
 
 # Some extra code for the future tutorial on Scheil solidification :)
 from scheil import simulate_scheil_solidification
