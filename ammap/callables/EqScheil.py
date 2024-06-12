@@ -41,7 +41,7 @@ def equilibrium_callable(elP):
 # Some extra code for the future tutorial on Scheil solidification :)
 from scheil import simulate_scheil_solidification
 # Meta Settings
-scheil_start_temperature = 3000
+scheil_start_temperature = 2500
 liquid_phase_name = 'LIQUID'
 def scheil_callable(elP):
     elP_round = [round(v-0.000001, 6) if v>0.000001 else 0.0000001 for v in elP]
@@ -52,12 +52,28 @@ def scheil_callable(elP):
         initial_composition, scheil_start_temperature, step_temperature=1.0)
 
     phaseFractions = {}
+    phaseFractions = {}
     for phase, ammounts in sol_res.cum_phase_amounts.items():
         finalAmmount = round(ammounts[-1], 6)
-        if finalAmmount>0:
-            phaseFractions.update({phase: finalAmmount})
-
-    return phaseFractions.keys()
+        if finalAmmount > 0:
+            phaseFractions[phase] = finalAmmount
+    Lfrac = sol_res.fraction_liquid
+    Sfrac = sol_res.fraction_solid
+    scheilT = sol_res.temperatures
+    solT = sol_res.temperatures[len(scheilT) - 1]
+    for i, value in enumerate(Lfrac):
+        if value < 1:
+            break
+        print(i)
+        liqT = sol_res.temperatures[i-1]
+    return {
+        'scheilT': scheilT,
+        'phaseFractions': phaseFractions,
+        'Lfrac': Lfrac,
+        'Sfrac': Sfrac,
+        'solT': solT,
+        'liqT': liqT
+    }
 
 if __name__ == "main":
     pass
