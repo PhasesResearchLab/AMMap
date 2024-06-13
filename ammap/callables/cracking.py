@@ -2,6 +2,9 @@
 ## CURRENTLY UNDER DEVELOPMENT AND UNTESTED ##
 
 # NEEDED inputs: solidus temperatures, liquidus temperatures, list of temperature, solid fractions
+from sklearn import neighbors
+import numpy as np
+import math
 
 
 def getFR(solidT, liquidT):
@@ -25,7 +28,7 @@ def getFR(solidT, liquidT):
     return FR
 
 
-def getCSC(temperature, solidFraction, CSCPoints=[0.4,0.9,0.99]):
+def getCSC(temperature, solidFraction, CSCPoints=[0.4,0.9,0.99],numDataThreshold = 10):
     """Calculate the Critical Solidification Criteria.
 
     This function calculates the critical solidification criteria based on the given temperature and solid fraction.
@@ -68,7 +71,7 @@ def getCSC(temperature, solidFraction, CSCPoints=[0.4,0.9,0.99]):
             CSC.append(None)
     return CSC
 
-def getKou(temperature, solidFraction, KouPoints):
+def getKou(temperature, solidFraction, KouPoints= [0.93,0.98], numDataThreshold = 10):
     """
     Calculate the Kou value for each temperature and solid fraction pair.
 
@@ -109,7 +112,30 @@ def getKou(temperature, solidFraction, KouPoints):
             Kou.append(None)
     return Kou
 
-def getCD(temperature, solidFraction, CDPoints = [0.7,0.98]):
+def getIntegral(temperature, solidFraction):
+    """combine temperature and solid phase
+
+    Args:
+        temperature (list): list of temperature
+        solidCriterion (float, optional): Defaults to 0.001.
+
+    Returns:
+        dict: combined results of T and phase fraction
+    """
+    result = 0
+    if len(temperature) > 3:
+        for i in range(len(temperature)):
+            if i == 0:
+                delT = abs((temperature[i+1] - temperature[i])/2)
+            elif i == len(temperature) - 1:
+                delT = abs((temperature[i] - temperature[i-1])/2)
+            else:
+                delT = abs((temperature[i+1]+temperature[i])/2-(temperature[i]+temperature[i-1])/2)
+            result += solidFraction[i] * delT
+    return result
+
+
+def getCD(temperature, solidFraction, CDPoints = [0.7,0.98], numDataThreshold = 10):
     """
     Calculate CD1 and CD2 values based on temperature, solid fraction, and CDPoints.
 
