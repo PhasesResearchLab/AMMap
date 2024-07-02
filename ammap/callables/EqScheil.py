@@ -1,6 +1,7 @@
 from pycalphad import Database, equilibrium, variables as v
 from pycalphad.core.utils import instantiate_models, filter_phases, unpack_components
 from pycalphad.codegen.callables import build_phase_records
+import math
 
 # Problem Specific setup for our 9-element space exploration. Make sure that the elements 
 # are in the same order as the composition vector that will be passed to the equilibrium_callable.
@@ -36,7 +37,15 @@ def equilibrium_callable(elP):
         # just pass and let the graph exploration scheme decide what to do about it.
         # print(f"Point: {elP_round} failed to converge.")
         pass
-    return phasePresentList
+    allphase = list(eq_res.Phase.data)
+    pFrac=eq_res.NP.data.shape[-1]
+    pFracList=list(eq_res.NP.data.reshape([nPhases]))
+    pFracPresent= [pn for pn in pFracList if not math.isnan(pn)]
+    return{
+    'Phases':phasePresentList,
+#    'allPhase': allphase,
+    'PhaseFraction':pFracPresent
+    }
 
 # Some extra code for the future tutorial on Scheil solidification :)
 from scheil import simulate_scheil_solidification
