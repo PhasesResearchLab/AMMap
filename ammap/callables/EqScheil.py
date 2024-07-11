@@ -61,11 +61,11 @@ def scheil_callable(elP):
         initial_composition, scheil_start_temperature, step_temperature=1.0)
 
     phaseFractions = {}
-    phaseFractions = {}
     for phase, ammounts in sol_res.cum_phase_amounts.items():
         finalAmmount = round(ammounts[-1], 6)
         if finalAmmount > 0:
             phaseFractions[phase] = finalAmmount
+    test = sol_res.cum_phase_amounts
     Lfrac = sol_res.fraction_liquid
     Sfrac = sol_res.fraction_solid
     scheilT = sol_res.temperatures
@@ -73,15 +73,15 @@ def scheil_callable(elP):
     for i, value in enumerate(Lfrac):
         if value < 1:
             break
-        print(i)
         liqT = sol_res.temperatures[i-1]
     return {
         'scheilT': scheilT,
-        'phaseFractions': phaseFractions,
+        'finalPhase': phaseFractions,
         'Lfrac': Lfrac,
         'Sfrac': Sfrac,
         'solT': solT,
-        'liqT': liqT
+        'liqT': liqT,
+        'phaseFractions': test,
     }
 
 if __name__ == "main":
