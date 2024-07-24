@@ -61,11 +61,13 @@ The required python requirements, if the environment is already existing:
 conda install -y python=3.11 liblapack jupyter numpy pandas plotly scikit-learn
 ```
 ### `CALPHAD`
+Done using [pycalphad](https://pycalphad.org/docs/latest/) and a forked version of a python package for [scheil](https://github.com/pycalphad/scheil) found here: [scheil](https://github.com/HUISUN24/scheil)
+
 ```cmd
-pip install  scheil pycalphad
+pip install git+https://github.com/HUISUN24/scheil.git
+pip install pycalphad
 ```
 ### Optional Pathfinding used in Example
 ```cmd
 pip install pqam-rmsadtandoc2023 pathfinding
 ```
-
