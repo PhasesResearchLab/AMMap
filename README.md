@@ -3,8 +3,9 @@
 
 AMMap utilizes the newly developed [nimplex](https://github.com/amkrajewski/nimplex/tree/main), a high-performance Nim library for generation of simplex grids to describe the complex space that represents the design space possible for alloys made with additive manufacturing.
 
-`AMMap` uses several different methods out-of-the-box. These include thermodynamic equlibrium calculations, [Scheil-Gulliver solidification](https://en.wikipedia.org/wiki/Scheil_equation), and 5 different models for predicting cracking susceptibility.
+`AMMap` uses several different CALPHAD based methods out-of-the-box. These include thermodynamic equlibrium calculations, [Scheil-Gulliver solidification](https://en.wikipedia.org/wiki/Scheil_equation), and 5 different models for predicting cracking susceptibility.
 
+These methods can then be considered to find optimal paths in the space using any python compatible path tool.
 
 ## Installation
 ### `nimplex`
