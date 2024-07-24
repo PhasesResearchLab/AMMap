@@ -7,6 +7,11 @@ AMMap utilizes the newly developed [nimplex](https://github.com/amkrajewski/nimp
 
 These methods can then be considered to find optimal paths in the space using any python compatible path tool.
 
+GitHub Codespaces can be used for all parts, but lacks the computational strength for Scheil-Gulliver. These jobs require external computational time to calculate. Scheil results can be 
+analysed in Codespaces
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PhasesResearchLab/AMMap?quickstart=1)
+
 ## Installation
 ### `nimplex`
 The primary installation requirement is *nimplex*, which only requirement is [Nim](https://nim-lang.org/)
