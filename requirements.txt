@@ -1,0 +1,10 @@
+# python pip requirements only, see install instructions in README.md
+jupyter
+numpy
+pandas
+plotly
+scikit-learn
+pycalphad
+pqam-rmsadtandoc2023
+pathfinding
+scheil
