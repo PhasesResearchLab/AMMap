@@ -14,26 +14,26 @@ For user convenience, cloud-based GitHub Codespaces can be used for all `Jupyter
 
 ## Installation
 ### `nimplex`
-The primary installation requirement is *nimplex*, which only requirement is [Nim](https://nim-lang.org/)
-([Installation Instructions](https://nim-lang.org/install.html)) which can be done with a single command on most Unix (Linux/MacOS) systems:
-- with your distribution's package manager, for instance on Ubuntu/Debian **Linux**:
+The primary installation requirement is `nimplex`, which requires the small and easy-to-install [Nim](https://nim-lang.org/)
+([Installation Instructions](https://nim-lang.org/install.html)) compiler (assuming you already have a `C` compiler), which can be done with a single command on most **Unix** (Linux/MacOS) systems:
+- using [**conda**](https://docs.conda.io/en/latest/) cross-platform package manager:
   ```cmd
-  apt-get install nim
+  conda install -c conda-forge nim
   ```
 - on **MacOS**, assuming you have [Homebrew](https://brew.sh/) installed:
   ```cmd
   brew install nim
   ```
-- using [**conda**](https://docs.conda.io/en/latest/) cross-platform package manager:
+- with your Linux distribution's package manager (note that it may be an outdated `nim` version, impacting performance), for instance on Ubuntu/Debian **Linux**:
   ```cmd
-  conda install -c conda-forge nim
+  apt-get install nim
   ```
 
-Then, you can use the boundeled [Nimble](https://github.com/nim-lang/nimble) tool (pip-like package manager for Nim) to install two top-level dependencies: 
-[arraymancer](https://github.com/mratsim/Arraymancer), which is a powerful N-dimensional array library, and [nimpy](https://github.com/yglukhov/nimpy) which 
+Then, you can use the boundeled [Nimble](https://github.com/nim-lang/nimble) tool (`pip`-like package manager for Nim) to install two top-level dependencies: 
+[`arraymancer`](https://github.com/mratsim/Arraymancer), which is a powerful N-dimensional array library, and [`nimpy`](https://github.com/yglukhov/nimpy) which 
 helps with the Python bindings. You can do it with a single command:
 ```cmd
-nimble install  -y arraymancer nimpy
+nimble install -y arraymancer nimpy
 ```
 
 Finally, you can clone the repository and compile the library with:
@@ -44,13 +44,13 @@ nim c -r -d:release nimplex.nim --benchmark
 ```
 which will compile the library and run a few benchmarks to make sure everything runs smoothly. You should then see a compiled binary file `nimplex` in the current directory which exposes the CLI tool.
 
-If you want to use the **Python bindings**, you can compile the library with slightly different flags (depending on your system configuration) like so for Linux/MacOS:
+Now, for `AMMap` you want to use the **Python bindings**, so you need to also compile the library with slightly different flags (depending on your system configuration) like so for Linux/MacOS:
 ```cmd
 nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex
 ```
-and you should see a compiled library file `nimplex.so` in the current directory which can be immediately imported and used in Python.
+and you should see a compiled library file `nimplex.so` in the current directory which can be immediately imported and used in Python. For non-Unix systems, see [`nimpy`](https://github.com/yglukhov/nimpy) instructions.
 
-### `python`
+### `Python`
 It is recommended to use new environements for all python projects, this can be done as follows:
 ```cmd
 conda create -n AMMAP python=3.11 liblapack jupyter numpy pandas plotly scikit-learn
@@ -60,6 +60,7 @@ The required python requirements, if the environment is already existing:
 ```cmd
 conda install -y python=3.11 liblapack jupyter numpy pandas plotly scikit-learn
 ```
+
 ### `CALPHAD`
 Done using [pycalphad](https://pycalphad.org/docs/latest/) and a forked version of a python package for [scheil](https://github.com/pycalphad/scheil) found here: [scheil](https://github.com/HUISUN24/scheil)
 
