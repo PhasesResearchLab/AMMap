@@ -19,6 +19,8 @@ It is recommended to use new environements for all python projects, this can be 
 
 ```shell
 conda create -n AMMAP python=3.11 liblapack jupyter numpy pandas plotly scikit-learn
+```
+```shell
 conda activate AMMAP
 ```
 
