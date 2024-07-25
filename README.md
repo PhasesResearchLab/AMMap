@@ -73,3 +73,13 @@ pip install pqam-rmsadtandoc2023 pathfinding
 ```
 ### Other useful packages
 papermill - run jupyter notebooks from cmd line
+
+# Example Usages 
+## Equilibrium
+![alt text](https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/eqFrac.png?raw=true)
+
+## Cracking Criteria
+![alt text](https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/iCSC.png?raw=true)
+
+## Path Planning
+![alt text](https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/path2.png?raw=true)
