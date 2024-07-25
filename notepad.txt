@@ -1,0 +1,3 @@
+st_last_200 = list(st)[-200:]
+pfrac_last_200 = {key: list(value)[-200:] for key, value in pfrac.items()}
+xPhase_last_200 = {key: {k: list(v)[-200:] for k, v in value.items()} for key, value in xPhase.items()}
