@@ -1,7 +1,7 @@
 # AMMap
 ## `A`dditive `M`anufacturing `Map`ping of Compositional Spaces with Thermodynamic, Analytical, and Artificial Intelligence Models
 
-`AMMap` tool utilizes our novel [`nimplex`](https://github.com/amkrajewski/nimplex/tree/main) high-performance Nim library for generation of simplex grids to describe the complex space that represents the design space possible for alloys made with additive manufacturing.
+`AMMap` tool utilizes novel [`nimplex`](https://github.com/amkrajewski/nimplex/tree/main) high-performance Nim library for generation of simplex graphs, developed in our recent paper ([10.48550/arXiv.2402.03528](https://doi.org/10.48550/arXiv.2402.03528)), to describe the complex space that represents the design space possible for alloys made with additive manufacturing.
 
 `AMMap` implements callables for several different CALPHAD based methods out-of-the-box and is set to grow rapidly in the near future. These include thermodynamic equlibrium calculations with `pycalphad`, [Scheil-Gulliver solidification](https://en.wikipedia.org/wiki/Scheil_equation) with `scheil`, and 5 different models for predicting cracking susceptibility. These methods are discussed in [this publication](https://doi.org/10.1016/j.addma.2023.103672) on *Design methodology for functionally graded materials: Framework for considering cracking*.
 
