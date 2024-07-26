@@ -58,18 +58,14 @@ helps with the Python bindings. You can do it with a single command:
 nimble install -y arraymancer nimpy
 ```
 
-Finally, you can clone the repository and compile the library with:
+Now, you can update the `nimplex` submodule repository and compile it for `AMMap`. You want to do so in a way that creates its **Python bindings**. You will need slightly different flags depending on your system configuration, but for Unix (Linux/MacOS) you can do so with commands below, after making sure you are in the root `AMMap` directory:
 ```shell
-git clone https://github.com/amkrajewski/nimplex
-cd nimplex
-nim c -r -d:release nimplex.nim --benchmark
+git submodule update --init --recursive
+nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim
+nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim
 ```
-which will compile the library and run a few benchmarks to make sure everything runs smoothly. You should then see a compiled binary file `nimplex` in the current directory which exposes the CLI tool.
 
-Now, for `AMMap` you want to use the **Python bindings**, so you need to also compile the library with slightly different flags (depending on your system configuration) like so for Linux/MacOS, after moving back into the root AMMAP directory:
-```cmd
-nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim && nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim
-```
+For Windows and other platforms, you should consult [`nimpy`](https://github.com/yglukhov/nimpy) instructions.
 
 
 ### CALPHAD Tools
