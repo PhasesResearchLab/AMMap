@@ -72,6 +72,11 @@ nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex
 ```
 and you should see a compiled library file `nimplex.so` in the current directory which can be immediately imported and used in Python. For non-Unix systems, see [`nimpy`](https://github.com/yglukhov/nimpy) instructions.
 
+Now, move into the AMMAP directory and run the following command:
+```cmd
+git submodule update --init --recursive && nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim && nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim
+```
+
 
 ### CALPHAD Tools
 When you are done, you should also install [pycalphad](https://pycalphad.org/docs/latest/) and a forked version of a python package for [`scheil`](https://github.com/pycalphad/scheil) found [here](https://github.com/HUISUN24/scheil)
