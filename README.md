@@ -29,6 +29,12 @@ Or, if your environment already exists, simply:
 conda install -y python=3.11 liblapack jupyter numpy pandas plotly scikit-learn
 ```
 
+### Clone repository
+Clone the github repository in order to have the jupyter notebook and callables
+```shell
+git clone https://github.com/PhasesResearchLab/AMMap.git
+```
+
 ### `nimplex`
 The primary installation requirement is `nimplex`, which requires the small and easy-to-install [Nim](https://nim-lang.org/)
 ([Installation Instructions](https://nim-lang.org/install.html)) compiler (assuming you already have a `C` compiler), which can be done with a single command on most **Unix** (Linux/MacOS) systems:
