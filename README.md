@@ -66,15 +66,9 @@ nim c -r -d:release nimplex.nim --benchmark
 ```
 which will compile the library and run a few benchmarks to make sure everything runs smoothly. You should then see a compiled binary file `nimplex` in the current directory which exposes the CLI tool.
 
-Now, for `AMMap` you want to use the **Python bindings**, so you need to also compile the library with slightly different flags (depending on your system configuration) like so for Linux/MacOS:
-```shell
-nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex
-```
-and you should see a compiled library file `nimplex.so` in the current directory which can be immediately imported and used in Python. For non-Unix systems, see [`nimpy`](https://github.com/yglukhov/nimpy) instructions.
-
-Now, move into the AMMAP directory and run the following command:
+Now, for `AMMap` you want to use the **Python bindings**, so you need to also compile the library with slightly different flags (depending on your system configuration) like so for Linux/MacOS, after moving back into the root AMMAP directory:
 ```cmd
-git submodule update --init --recursive && nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim && nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim
+nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim && nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim
 ```
 
 
