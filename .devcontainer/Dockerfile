@@ -7,4 +7,4 @@ RUN apt-get update \
     && nimble install -y arraymancer nimpy \
     && pip install pqam-rmsadtandoc2023 pathfinding \
     && pip install git+https://github.com/HUISUN24/scheil.git \
-    && pip install pycalphad
+    && pip install pycalphad==0.10.5
