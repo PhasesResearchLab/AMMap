@@ -8,7 +8,7 @@ import math
 # are in the same order as the composition vector that will be passed to the equilibrium_callable.
 dbf = Database("ammap/databases/Co-Cr-Fe-Ni-V_choi2019.TDB")
 T = 1000
-elementalSpaceComponents = ['Cr', 'Ni', 'V']
+elementalSpaceComponents = ['Ni', 'Cr', 'V']
 
 # Setup the pycalphad models
 phases = list(set(dbf.phases.keys()))
