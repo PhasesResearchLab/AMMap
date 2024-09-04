@@ -6,9 +6,9 @@ import math
 
 # Problem Specific setup for our 9-element space exploration. Make sure that the elements 
 # are in the same order as the composition vector that will be passed to the equilibrium_callable.
-dbf = Database("ammap/databases/Cr-Fe-Ni_miettinen1999.tdb")
+dbf = Database("ammap/databases/Co-Cr-Fe-Ni-V_choi2019.TDB")
 T = 1000
-elementalSpaceComponents = ['Ni', 'Cr', 'Fe']
+elementalSpaceComponents = ['Cr', 'Ni', 'V']
 
 # Setup the pycalphad models
 phases = list(set(dbf.phases.keys()))
@@ -20,7 +20,7 @@ expected_conds=[v.T]+[v.X(el) for el in comps[:-2]]
 default_conds={v.P: 101325, v.N: 1.0}
 
 # A neat callable for the equilibrium calculation that we will pass to the parallel graph exploration
-def equilibrium_callable(elP):
+def equilibrium_callable1(elP):
     # Round to 6 decimal places, but make sure that 0.0 is not rounded to 0.0. pyCalphad will not like 
     # if the components are exactly 0 or sum to exactly 1 in the equilibrium calculation for reasons
     # that are beyond the scope of this tutorial.
