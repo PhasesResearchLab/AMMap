@@ -8,7 +8,6 @@ prepend it with constants based on the YAML file, and write it to the output dir
 from ruamel.yaml import YAML
 import os
 import hashlib
-import shutil
 from pathlib import Path
 import sys
 
