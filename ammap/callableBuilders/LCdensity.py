@@ -45,16 +45,26 @@ def constructCallable(name: str, hash: str, data: dict):
         template = f.read()
 
     # Prepend the template with the constants based on the YAML file
-    payload = f"# Constants based on the YAML file\n"
-    if 'min' in data:
-        payload += f"MIN = {data['min']}\n"
-    if 'max' in data:
-        payload += f"MAX = {data['max']}\n"
+    constantsPayload = "# Constants based on the YAML file\n"
     if 'elements' not in data:
         raise ValueError('No elements key found in the YAML file')
     else:
-        payload += f"ELEMENTS = {elements}\n"
-    payload += '\n\n\n' + template
+        constantsPayload += f"ELEMENTS = {elements}\n"
+    
+    headerPayload = f'"""Linear Combination (atomic-fraction based) of elemental densities in {"-".join(elements)} system with constraints: '
+    
+    if 'min' in data:
+        constantsPayload += f"MIN = {data['min']}\n"
+        headerPayload += f"{data['min']}g/cm^3 < d"
+    if 'max' in data:
+        constantsPayload += f"MAX = {data['max']}\n"
+        if 'min' in data:
+            headerPayload += ' and '
+        headerPayload += f"d < {data['max']}g/cm^3"
+
+    headerPayload += '"""\n'
+    
+    payload = headerPayload + constantsPayload + '\n' + template
 
     # Create the output file and write the payload
     with open(f'ammap/callables/{output}/LCdensity.py', 'w') as f:
