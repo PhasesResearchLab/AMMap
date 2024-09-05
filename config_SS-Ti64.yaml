@@ -1,5 +1,5 @@
 # Note that these will be implemented very progressively, so some elements may not yet be passed into the tool and serve as placeholders.
-name: SS-Ti64
+name: SSTi64
 description: Path planning across several ternary phase diagrams from Stainless Steel (Ni9.6 Cr19.9 Fe70.5) to Ti64 (Ti0.862 Al0.102 V0.036)
 nDivisionsPerDimension: 12
 
@@ -15,14 +15,14 @@ constraints:
     max: 11.5
 
 elementalSpaces:
-  - name: SS+V
+  - name: SS_V
     elements:
       - Ni
       - Cr
       - Fe
       - V
     tdb: Bobbio2021.tdb
-  - name: Ti64+Cr
+  - name: Ti64_Cr
     elements:
       - Ti
       - Al
@@ -33,29 +33,29 @@ elementalSpaces:
 designSpaces:
 
   - name: SS
-    elementalSpace: SS-Cr-Ni
+    elementalSpace: SS_V
     components:
       - [0.096114519430,0.1993865031, 0.7044989775, 0] # SS
       - [0, 1, 0, 0] # Cr
       - [1, 0, 0, 0] # Ni
     stitch:
      - edge: 1 # opposite to SS
-       targetDesignSpace: Ni-Cr-V
+       targetDesignSpace: Ni_Cr_V
        targetEdge: 3 # opposite to V
 
-  - name: Ni-Cr-V
-    elementalSpace: SS+V
+  - name: Ni_Cr_V
+    elementalSpace: SS_V
     components:
       - [1, 0, 0, 0] # Ni
       - [0, 1, 0, 0] # Cr
       - [0, 0, 0, 1] # V
     stitch:
       - edge: 1 # opposite to Ni
-        targetDesignSpace: Ti64-Cr-V
+        targetDesignSpace: Ti64_Cr_V
         targetEdge: 1 # opposite to Ti64
 
-  - name: Ti64-Cr-V
-    elementalSpace: Ti64+Cr
+  - name: Ti64_Cr_V
+    elementalSpace: Ti64_Cr
     components:
       - [0.862, 0.102, 0.036, 0] # Ti64
       - [0, 0, 1, 0] # V
@@ -64,6 +64,6 @@ designSpaces:
 pathPlan:
   - designSpace: SS
     position: [12, 0, 0]
-  - designSpace: Ti64-Cr-V
+  - designSpace: Ti64_Cr_V
     index: -1 # Last position in the design space corresponding to 100% of the first component
   
