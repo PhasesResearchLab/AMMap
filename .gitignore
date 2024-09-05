@@ -10,8 +10,12 @@ htmldocs/
 *.so
 *.pyd
 .DS_Store
+**/__pycache__/
 # Example Output Files
 *.json
 !scheilmap.json
 *test*.ipynb
 *Test*.ipynb
+
+# Ignore files in subdirectories of ammap/callables; but not the ammap/callables directory itself
+ammap/callables/*
