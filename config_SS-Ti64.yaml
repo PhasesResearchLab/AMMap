@@ -11,6 +11,11 @@ constraints:
      - FCC_A1
      - BCC_A2
      - HCP_A3
+    # requiredPhases:
+    #  - BCC_A2
+    # infeasiblePhases:
+    #  - LIQUID
+    #  - SIGMA
   - type: LC density
     max: 11.5
 
