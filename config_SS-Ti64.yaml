@@ -18,6 +18,16 @@ constraints:
     #  - SIGMA
   - type: LC density
     max: 11.5
+  - type: scheil
+    startTemperature: 2500
+    liquidPhase: 'LIQUID'
+  - type: cracking
+    criteria:
+     - FR
+     - Kou
+     - CSC
+     - iCSC
+     - sRDG
 
 elementalSpaces:
   - name: SS_V

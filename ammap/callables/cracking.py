@@ -200,7 +200,7 @@ def getCD(temperature, solidFraction, CDPoints = [0.7,0.98], numDataThreshold = 
 #        else:
 #            CD1.append(None)
 #            CD2.append(None)
-    return CD1, CD2
+#    return CD1, CD2
 
 def getNeighborCSC(temperature, solidFraction, CSCPoints=[0.4,0.9,0.99],numDataThreshold = 10):
     """Calculate the Critical Solidification Criteria.
