@@ -11,6 +11,18 @@ For user convenience, cloud-based GitHub Codespaces can be used for all `Jupyter
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PhasesResearchLab/AMMap?quickstart=1)
 
+## Capabilities
+***Note*** Full technical discussions will be in upcoming manuscript. Section below is a short highlights of tool ability.
+1. **Simplex/Compositional Graph Generation** to allow for compositionally complex materials with high order of possible combinations to be fully considered
+2. **Stitching of elemental spaces from different thermodynamic databases into singular traversable graph** to allow for path planning across multiple composition regions from incompatible databases due to model differences
+3. **Material Information Generation** Thermodynamic (Equilibrium and Scheil-Gulliver) information about the material at any given graph point calculated to determine phase composition to avoid undesired phase formation in path planning. Thermodynamic information can then be used to determine the hot-cracking susceptibility of a point to further inform material design.
+4. **Infeasibility Gliding** Detects infeasible regions and avoids uneccessary calculations of interior points to reduce total computational cost
+5. **Path Planning Compatibility** Deployment of any graph algorithms on created design space and highly compatible with backends of choice
+
+### Planned
+1. **YAML format input** for human readable definition of design space, constraints, and objectives
+2. **Expanded Property Models** More material properties that can be mapped onto compositional graphs are planned, e.g. elastic modulii
+3. **Output of callables for Machine Learning** 
 
 ## Installation
 
