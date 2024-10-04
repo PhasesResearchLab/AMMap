@@ -12,12 +12,18 @@ For user convenience, cloud-based GitHub Codespaces can be used for all `Jupyter
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PhasesResearchLab/AMMap?quickstart=1)
 
 ## Capabilities
-***Note*** Full technical discussions will be in upcoming manuscript. Section below is a short highlights of tool ability.
+***Note*** Full technical discussions will be in upcoming manuscript. Section below is a short highlights of tool ability. Visual representations of capabilities for example systems can be seen at end of README below
 1. **Simplex/Compositional Graph Generation** to allow for compositionally complex materials with high order of possible combinations to be fully considered
 2. **Stitching of elemental spaces from different thermodynamic databases into singular traversable graph** to allow for path planning across multiple composition regions from incompatible databases due to model differences
 3. **Material Information Generation** Thermodynamic (Equilibrium and Scheil-Gulliver) information about the material at any given graph point calculated to determine phase composition to avoid undesired phase formation in path planning. Thermodynamic information can then be used to determine the hot-cracking susceptibility of a point to further inform material design.
 4. **Infeasibility Gliding** Detects infeasible regions and avoids uneccessary calculations of interior points to reduce total computational cost
 5. **Path Planning Compatibility** Deployment of any graph algorithms on created design space and highly compatible with backends of choice. Currently finds the shortest path which can be stretched. Found path can then be simplified to change from point-to-point path to generalized format
+
+<div align="center">
+  <img src="https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/ThreeTernary.png?raw=true" alt="alt text" width="800">
+</div>
+
+*Path planning across  elemental spaces from seperate thermodynamic databases demonstrated in the path planning from SS304L to pure Ti*
 
 ### Planned
 1. **YAML format input** for human readable definition of design space, constraints, and objectives
@@ -103,10 +109,19 @@ pip install papermill
 
 # Example Outputs 
 ## Equilibrium
+<div align="center">
+  
 ![alt text](https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/eqFrac.png?raw=true)
+</div>
 
 ## Cracking Criteria
+<div align="center">
+
 ![alt text](https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/iCSC.png?raw=true)
+</div>
 
 ## Path Planning
+<div align="center">
+
 ![alt text](https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/path2.png?raw=true)
+</div>
