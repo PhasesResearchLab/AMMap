@@ -17,12 +17,14 @@ For user convenience, cloud-based GitHub Codespaces can be used for all `Jupyter
 2. **Stitching of elemental spaces from different thermodynamic databases into singular traversable graph** to allow for path planning across multiple composition regions from incompatible databases due to model differences
 3. **Material Information Generation** Thermodynamic (Equilibrium and Scheil-Gulliver) information about the material at any given graph point calculated to determine phase composition to avoid undesired phase formation in path planning. Thermodynamic information can then be used to determine the hot-cracking susceptibility of a point to further inform material design.
 4. **Infeasibility Gliding** Detects infeasible regions and avoids uneccessary calculations of interior points to reduce total computational cost
-5. **Path Planning Compatibility** Deployment of any graph algorithms on created design space and highly compatible with backends of choice
+5. **Path Planning Compatibility** Deployment of any graph algorithms on created design space and highly compatible with backends of choice. Currently finds the shortest path which can be stretched. Found path can then be simplified to change from point-to-point path to generalized format
 
 ### Planned
 1. **YAML format input** for human readable definition of design space, constraints, and objectives
 2. **Expanded Property Models** More material properties that can be mapped onto compositional graphs are planned, e.g. elastic modulii
-3. **Output of callables for Machine Learning** 
+3. **Output of callables for Machine Learning**
+4. **Path Planning Updates** to minimize the number of turns or more generally hyperplanes.
+5. **Build Planning Algorithm** Collaboration to create algorithm to convert given path into physical AM build path for fabrication
 
 ## Installation
 
