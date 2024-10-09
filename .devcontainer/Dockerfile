@@ -8,3 +8,5 @@ RUN apt-get update \
     && pip install pqam-rmsadtandoc2023 pathfinding \
     && pip install git+https://github.com/HUISUN24/scheil.git \
     && pip install pycalphad==0.10.5
+
+WORKDIR /workspace
