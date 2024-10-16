@@ -15,7 +15,7 @@ nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nim
 echo "Plotting utility compiled successfully."
 
 echo "Compiling stitching utility..."
-nim c --d:release --threads:on --app:lib --out:utils/stitching.so nimplex/src/nimplex/utils/stitching
+nim c --d:release --threads:on --app:lib --out:utils/stitching.so nimplex/src/nimplex/utils/stitching.nim
 echo "Stitching utility compiled successfully."
 
 echo "Verifying installations..."
