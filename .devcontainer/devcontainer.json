@@ -22,5 +22,5 @@
       "memory": "16gb",
       "storage": "16gb"
   },
-  "onCreateCommand": "git submodule update --init --recursive && nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim && nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim"
+  "onCreateCommand": "git submodule update --init --recursive && nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim && nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim && nim c --d:release --threads:on --app:lib --out:utils/stitching.so nimplex/src/nimplex/utils/stitching.nim"
 }
