@@ -21,6 +21,10 @@ constraints:
   - type: scheil
     startTemperature: 2500
     liquidPhase: 'LIQUID'
+    feasiblePhases:
+     - FCC_A1
+     - BCC_A2
+     - HCP_A3
   - type: cracking
     criteria:
      - FR
