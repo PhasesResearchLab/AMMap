@@ -12,6 +12,30 @@ callables:
   - name: NiCrFe
     tdb: "ammap/databases/Cr-Fe-Ni_miettinen1999.tdb"
     elements: [Ni, Cr, Fe]
+    
+  - name: CrFeTi
+    tdb: "ammap/databases/Cr-Fe-Ti_wang2017.tdb"
+    elements: [Cr, Fe, Ti]
+
+  - name: CrNiTi
+    tdb: "ammap/databases/Cr-Ni-Ti_huang2018.tdb"
+    elements: [Cr, Ni, Ti]
+
+  - name: FeNiTi
+    tdb: "ammap/databases/Fe-Ni-Ti_dekeyzer2009.tdb"
+    elements: [Fe, Ni, Ti]
+
+  - name: FeNiV
+    tdb: "ammap/databases/Fe-Ni-V_zhao2014.tdb"
+    elements: [Fe, Ni, V]
+
+  - name: FeTiV
+    tdb: "ammap/databases/Fe-Ti-V_guo2012.TDB"
+    elements: [Fe,Ti,V]
+
+  - name: NiTiV
+    tdb: "ammap/databases/Ni-Ti-V_zou2018.tdb"
+    elements: [Ni,Ti,V] 
 
 constraints:
   - type: equilibrium
