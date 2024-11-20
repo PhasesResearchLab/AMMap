@@ -9,6 +9,10 @@ callables:
     tdb: "ammap/databases/Co-Cr-Fe-Ni-V_choi2019.TDB"
     elements: [Ni, Cr, V]
 
+  - name: CrFeV
+    tdb: "ammap/databases/Co-Cr-Fe-Ni-V_choi2019.TDB"
+    elements: [Cr,Fe, V]
+
   - name: NiCrFe
     tdb: "ammap/databases/Cr-Fe-Ni_miettinen1999.tdb"
     elements: [Ni, Cr, Fe]
