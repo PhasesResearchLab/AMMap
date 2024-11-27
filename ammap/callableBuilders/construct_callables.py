@@ -34,7 +34,7 @@ def construct_callables(yaml_file):
     for callable_config in data['callables']:
         name = callable_config['name']
         tdb_file = callable_config['tdb']
-        elements = callable_config['elements']
+        elements = sorted(callable_config['elements'])
         
         # Generate a unique identifier based on elements and TDB file
         unique_id = hashlib.sha256(f"{'-'.join(elements)}_{tdb_file}".encode()).hexdigest()[:8]
