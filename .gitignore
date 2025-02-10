@@ -11,4 +11,5 @@ htmldocs/
 *.pyd
 .DS_Store
 smallTest.ipynb
+*scheil_results.json
 # Example Output Files

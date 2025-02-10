@@ -1,6 +1,7 @@
 from pycalphad import Database, equilibrium, variables as v
 from pycalphad.core.utils import instantiate_models, filter_phases, unpack_components
 from pycalphad.codegen.callables import build_phase_records
+import pandas as pd
 
 # Problem Specific setup for our 9-element space exploration. Make sure that the elements 
 # are in the same order as the composition vector that will be passed to the equilibrium_callable.
@@ -41,7 +42,7 @@ def equilibrium_callable(elP):
 # Some extra code for the future tutorial on Scheil solidification :)
 from scheil import simulate_scheil_solidification
 # Meta Settings
-scheil_start_temperature = 3000
+scheil_start_temperature = 2500
 liquid_phase_name = 'LIQUID'
 def scheil_callable(elP):
     elP_round = [round(v-0.000001, 6) if v>0.000001 else 0.0000001 for v in elP]
@@ -54,10 +55,42 @@ def scheil_callable(elP):
     phaseFractions = {}
     for phase, ammounts in sol_res.cum_phase_amounts.items():
         finalAmmount = round(ammounts[-1], 6)
-        if finalAmmount>0:
-            phaseFractions.update({phase: finalAmmount})
-
-    return phaseFractions.keys()
+        if finalAmmount > 0:
+            phaseFractions[phase] = finalAmmount
+    test = sol_res.cum_phase_amounts
+    Lfrac = sol_res.fraction_liquid
+    Sfrac = sol_res.fraction_solid
+    scheilT = sol_res.temperatures
+    solT = sol_res.temperatures[len(scheilT) - 1]
+    ddict = sol_res.x_phases
+    keys_to_remove_from_ddict = []
+    for ddict_key, dict_value in ddict.items():
+        keys_to_remove_from_dict = [key for key, value in dict_value.items() if pd.isna(value).all()]
+    # Remove marked keys from the dictionary
+        for key in keys_to_remove_from_dict:
+            del dict_value[key]   
+    # If the dictionary is empty, mark the key in the defaultdict for removal
+        if not dict_value:
+            keys_to_remove_from_ddict.append(ddict_key)
+# Remove the marked keys from the defaultdict
+    for key in keys_to_remove_from_ddict:
+        del ddict[key]
+    yPhase = sol_res.Y_phases
+    for i, value in enumerate(Lfrac):
+        if value < 1:
+            break
+        liqT = sol_res.temperatures[i-1]
+    return {
+        'scheilT': scheilT,
+        'finalPhase': phaseFractions,
+        'Lfrac': Lfrac,
+        'Sfrac': Sfrac,
+        'solT': solT,
+        'liqT': liqT,
+        'phaseFractions': test,
+        'xPhase': ddict#,
+        #'yPhase': yPhase
+    }
 
 if __name__ == "main":
     pass
