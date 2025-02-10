@@ -12,4 +12,5 @@ htmldocs/
 .DS_Store
 smallTest.ipynb
 *scheil_results.json
+hold/
 # Example Output Files
