@@ -31,7 +31,7 @@ def construct_callables(yaml_file):
     eq_constraint = next((c for c in constraints if c['type'].lower() == 'equilibrium'), None)
     scheil_constraint = next((c for c in constraints if c['type'].lower() == 'scheil'), None)
     
-    for callable_config in data['callables']:
+    for callable_config in data['elementalSpaces']:
         name = callable_config['name']
         tdb_file = callable_config['tdb']
         elements = sorted(callable_config['elements'])

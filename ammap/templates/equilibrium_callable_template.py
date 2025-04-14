@@ -24,7 +24,7 @@ def equilibrium_callable(elP):
     conds = {{**default_conds, **dict(zip(expected_conds, [T] + elP_round))}}
     eq_res = equilibrium(
         dbf, comps, phases_filtered,
-        conds, model=models, phase_records=phase_records, calc_opts=dict(pdens=2000))
+        conds, model=models, phase_records=phase_records, calc_opts=dict(pdens=5000))
     
     nPhases = eq_res.Phase.data.shape[-1]
     phaseList = list(eq_res.Phase.data.reshape([nPhases]))

@@ -1,0 +1,137 @@
+name: multi_system_equilibrium_and_scheil
+nDivisionsPerDimension: 36
+elementalSpaces:
+  - name: CrTiV
+    tdb: "ammap/databases/Cr-Ti-V_ghosh2002.tdb"
+    elements: [Cr, Ti, V]
+
+  - name: NiCrV
+    tdb: "ammap/databases/Co-Cr-Fe-Ni-V_choi2019.TDB"
+    elements: [Ni, Cr, V]
+
+  - name: CrFeV
+    tdb: "ammap/databases/Co-Cr-Fe-Ni-V_choi2019.TDB"
+    elements: [Cr,Fe, V]
+
+  - name: NiCrFe
+    tdb: "ammap/databases/Cr-Fe-Ni_miettinen1999.tdb"
+    elements: [Ni, Cr, Fe]
+    
+  - name: CrFeTi
+    tdb: "ammap/databases/Cr-Fe-Ti_wang2017.tdb"
+    elements: [Cr, Fe, Ti]
+
+  - name: CrNiTi
+    tdb: "ammap/databases/Cr-Ni-Ti_huang2018.tdb"
+    elements: [Cr, Ni, Ti]
+
+  - name: FeNiTi
+    tdb: "ammap/databases/Fe-Ni-Ti_dekeyzer2009.tdb"
+    elements: [Fe, Ni, Ti]
+
+  - name: FeNiV
+    tdb: "ammap/databases/Fe-Ni-V_zhao2014.tdb"
+    elements: [Fe, Ni, V]
+
+  - name: FeTiV
+    tdb: "ammap/databases/Fe-Ti-V_guo2012.TDB"
+    elements: [Fe,Ti,V]
+
+  - name: NiTiV
+    tdb: "ammap/databases/Ni-Ti-V_zou2018.tdb"
+    elements: [Ni,Ti,V] 
+designSpaces:
+  - name: CrTiV
+    elementalSpace: CrTiV
+    components:
+      - [1, 0, 0]  # Cr
+      - [0, 1, 0]  # Ti
+      - [0, 0, 1]  # V
+  - stitch: Cr-Ti
+    targetDesignSpace: CrFeTi, CrNiTi
+  - stitch: Cr-V
+    targetDesignSpace: CrFeV, CrNiV
+  - stitch: Ti-V
+    targetDesignSpace: FeTiV, NiTiV
+
+  - name: NiCrV
+    elementalSpace: NiCrV
+    components:
+      - [1, 0, 0]  # Ni
+      - [0, 1, 0]  # Cr
+      - [0, 0, 1]  # V
+
+  - name: CrFeV
+    elementalSpace: CrFeV
+    components:
+      - [1, 0, 0]  # Cr
+      - [0, 1, 0]  # Fe
+      - [0, 0, 1]  # V
+
+  - name: NiCrFe
+    elementalSpace: NiCrFe
+    components:
+      - [1, 0, 0]  # Ni
+      - [0, 1, 0]  # Cr
+      - [0, 0, 1]  # Fe
+
+  - name: CrFeTi
+    elementalSpace: CrFeTi
+    components:
+      - [1, 0, 0]  # Cr
+      - [0, 1, 0]  # Fe
+      - [0, 0, 1]  # Ti
+
+  - name: CrNiTi
+    elementalSpace: CrNiTi
+    components:
+      - [1, 0, 0]  # Cr
+      - [0, 1, 0]  # Ni
+      - [0, 0, 1]  # Ti
+
+  - name: FeNiTi
+    elementalSpace: FeNiTi
+    components:
+      - [1, 0, 0]  # Fe
+      - [0, 1, 0]  # Ni
+      - [0, 0, 1]  # Ti
+
+  - name: FeNiV
+    elementalSpace: FeNiV
+    components:
+      - [1, 0, 0]  # Fe
+      - [0, 1, 0]  # Ni
+      - [0, 0, 1]  # V
+
+  - name: FeTiV
+    elementalSpace: FeTiV
+    components:
+      - [1, 0, 0]  # Fe
+      - [0, 1, 0]  # Ti
+      - [0, 0, 1]  # V
+
+  - name: NiTiV
+    elementalSpace: NiTiV
+    components:
+      - [1, 0, 0]  # Ni
+      - [0, 1, 0]  # Ti
+      - [0, 0, 1]  # V
+constraints:
+  - type: equilibrium
+    temperature: 1000
+    pressure: 101325
+    feasiblePhases: 
+     - FCC_A1
+     - BCC_A2
+     - HCP_A3
+  - type: scheil
+    startTemperature: 2500
+    liquidPhase: 'LIQUID'
+    step_temperature: 1
+  # - type: pathAlgorithm
+  #   name: DijkstraFinder()
+
+pathPlan:
+  - designSpace: CrFeNi
+    composition: [0.18, 0.74, 0.08]
+  - composition: [0.0, 0.0, 0.0, 0.95, 0.05]
