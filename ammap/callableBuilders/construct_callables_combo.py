@@ -23,8 +23,10 @@ def construct_callables(yaml_file):
         eq_template = f.read()
     with open('ammap/templates/scheil_callable_template.py', 'r') as f:
         scheil_template = f.read()
-    with open('ammap/templates/hybrid_scheil_eq_callable_template_perp.py', 'r') as f:
+    with open('ammap/templates/hybrid_scheil_eq_callable_template.py', 'r') as f:
         hybrid_template = f.read()
+        # hybrid_template = f.read().replace('{', '{{').replace('}', '}}')
+        # hybrid_template = hybrid_template.replace('{{{{', '{{').replace('}}}}', '}}')
     
     # Process constraints
     constraints = data.get('constraints', [])
