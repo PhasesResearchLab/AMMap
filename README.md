@@ -147,3 +147,19 @@ pip install papermill
 If you are interested in contributing to the **core functionalities**, please reach out to us via [GitHub Issues](https://github.com/PhasesResearchLab/AMMap/issues) and we will be happy to discuss your ideas and help you get started.
 
 If you are interested in contributing **scientific / ML / thermodynamic models** to our system, that can already be done in a relatively straightforward fashion, by providing a callable template script (see existing ones). Feel free to do a pull request directly but do not hesitate to reach out if you have any questions or need guidance.
+
+# Please Cite
+
+If you use `AMMap` in your research in any capacity, please cite the following two papers:
+
+- Krajewski, A.M., Beese, A.M., Reinhart, W.F., *Efficient generation of grids and traversal graphs in compositional spaces towards exploration and path planning.* npj Unconv. Comput. 1, 12 (2024). DOI: https://doi.org/10.1038/s44335-024-00012-2
+
+- Richter, A., Krajewski, A.M., Yang, Z., Beese, A.M., Liu, Z.K., *AMMap Tool for Additive Manufacturing Design, Alloy Discovery, and Path Planning*. Journal of Physics: Materials, Accepted (2025). DOI: https://doi.org/10.1088/2515-7639/ade73e
+
+If you use the thermodynamic models through `pycalphad`, please also cite the following papers:
+
+- Otis, R. & Liu, Z.-K., (2017). *pycalphad: CALPHAD-based Computational Thermodynamics in Python. Journal of Open Research Software*. 5(1), p.1. DOI: http://doi.org/10.5334/jors.140
+
+If you use the cracking susceptibility models, please also cite the following paper:
+
+- Yang Z., Sun H., Liu Z.-K., Beese A.M., *Design methodology for functionally graded materials: Framework for considering cracking*, Additive Manufacturing, Vol 73, 2023, 103672. DOI: https://doi.org/10.1016/j.addma.2023.103672
