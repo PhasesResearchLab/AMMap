@@ -139,3 +139,11 @@ pip install papermill
 
 ![alt text](https://github.com/PhasesResearchLab/AMMap/blob/main/utils/images/path2.png?raw=true)
 </div>
+
+# Contributing Guidelines
+
+`AMMap` is an MIT-licensed open-source project, and we welcome contributions from the community. As of June 2025, it is still a research-grade tool, but we are actively working on adding high-level of automation and other usable features to turn it into a user-tool that can be used by additive manufacturing researchers and engineers without significant programming experience. The goal is to have a simple `YAML`-based input format to describe the design space and constraints, and then use the tool will run everything automatically on your machine or on an HPC.
+
+If you are interested in contributing to the **core functionalities**, please reach out to us via [GitHub Issues](https://github.com/PhasesResearchLab/AMMap/issues) and we will be happy to discuss your ideas and help you get started.
+
+If you are interested in contributing **scientific / ML / thermodynamic models** to our system, that can already be done in a relatively straightforward fashion, by providing a callable template script (see existing ones). Feel free to do a pull request directly but do not hesitate to reach out if you have any questions or need guidance.
