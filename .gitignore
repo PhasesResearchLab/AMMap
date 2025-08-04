@@ -1,5 +1,4 @@
 ## NIM+Python gitignore
-*
 !LICENSE
 !Dockerfile
 !**/
@@ -18,5 +17,8 @@ htmldocs/
 *Test*.ipynb
 
 # Ignore files in subdirectories of ammap/callables; but not the ammap/callables directory itself
-ammap/callables/*
+#ammap/callables/*
 scratch/*
+
+#ammap/callables/*/*
+ammap/callables/*/
