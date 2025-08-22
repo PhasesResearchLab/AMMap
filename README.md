@@ -17,11 +17,11 @@ We have set up a cloud-based GitHub Codespace can be used for all `Jupyter` note
 **Quick Start**: [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/PhasesResearchLab/AMMap?quickstart=1)
 
 ## Capabilities
-***Note*** Full technical discussions is given in our recent [JPhysMat paper (10.1088/2515-7639/ade73e)](https://doi.org/10.1088/2515-7639/ade73e). Section below is a short highlights of tool ability. 
+***Note*** Full technical discussions are given in our recent [JPhysMat paper (10.1088/2515-7639/ade73e)](https://doi.org/10.1088/2515-7639/ade73e). The section below provides short highlights of tool ability. 
 1. **Simplex/Compositional Graph Generation** to allow for compositionally complex materials with high order of possible combinations to be fully considered in a homogenous fashion.
 2. **Stitching of elemental spaces from different thermodynamic databases into singular traversable graph** to allow for path planning across multiple composition regions from incompatible databases due to model differences.
 3. **Material Information Generation** Thermodynamic (Equilibrium and Scheil-Gulliver) information about the material at any given graph point calculated to determine phase composition to avoid undesired phase formation in path planning. Thermodynamic information can then be used to determine the hot-cracking susceptibility of a point to further inform material design. Visual representations of capabilities for example systems can be seen at end of README below.
-4. **Infeasibility Gliding** Detects infeasible regions and avoids uneccessary calculations of interior points to reduce total computational cost.
+4. **Infeasibility Gliding** Detects infeasible regions and avoids unnecessary calculations of interior points to reduce total computational cost.
 5. **Path Planning Compatibility** Deployment of any graph algorithms on created design space and highly compatible with backends of choice. Currently finds the shortest path which can be stretched. Found path can then be simplified to change from point-to-point path to generalized format.
 
 - In **simple cases**, like path planning across 3 ternary spaces using on 3 different thermodynamic databases, to go from from approximated SS304L to pure titanium, the results generally look like this:
@@ -147,7 +147,7 @@ pip install papermill
 
 # Contributing Guidelines
 
-`AMMap` is an MIT-licensed open-source project, and we welcome contributions from the community. As of June 2025, it is still a research-grade tool, but we are actively working on adding high-level of automation and other usable features to turn it into a user-tool that can be used by additive manufacturing researchers and engineers without significant programming experience. The goal is to have a simple `YAML`-based input format to describe the design space and constraints, and then use the tool will run everything automatically on your machine or on an HPC.
+`AMMap` is an MIT-licensed open-source project, and we welcome contributions from the community. As of June 2025, it is still a research-grade tool, but we are actively working on adding high-level of automation and other usable features to turn it into a user-tool that can be used by additive manufacturing researchers and engineers without significant programming experience. The goal is to have a simple `YAML`-based input format to describe the design space and constraints, and then the tool will run everything automatically on your machine or on an HPC.
 
 If you are interested in contributing to the **core functionalities**, please reach out to us via [GitHub Issues](https://github.com/PhasesResearchLab/AMMap/issues) and we will be happy to discuss your ideas and help you get started.
 
