@@ -40,19 +40,38 @@ def construct_callables(yaml_file):
         unique_id = hashlib.sha256(f"{'-'.join(elements)}_{tdb_file}".encode()).hexdigest()[:8]
         
         # Construct equilibrium callable if constraint exists
+
+# Handle temperature generation
+
         if eq_constraint:
+            temp_config = eq_constraint.get('temperature', 1000)
+            
+            # Check if temperature is a list [maxT, step_temperature, minT]
+            if isinstance(temp_config, list) and len(temp_config) == 3:
+                base_temp, step_temp, min_temp = temp_config
+            else:
+                # Fallback to single temperature value
+                base_temp = temp_config if isinstance(temp_config, (int, float)) else 1000
+                step_temp = None
+                min_temp = base_temp
+
+            if step_temp is not None:
+                temp_list = list(range(base_temp, min_temp - 1, -step_temp))
+                if not temp_list or temp_list[-1] > min_temp:
+                    temp_list.append(min_temp)
+            else:
+                temp_list = [base_temp]
+
             eq_content = eq_template.format(
                 tdb_file=tdb_file,
-                temperature=eq_constraint.get('temperature', 1000),
+                temperature_list=temp_list,  # Will become np.array([...]) in template
                 elements=elements,
                 pressure=eq_constraint.get('pressure', 101325),
                 feasible_phases=eq_constraint.get('feasiblePhases', [])
             )
-            
             eq_output_file = f"{output_dir}/equilibrium_callable_{name}_{unique_id}.py"
             with open(eq_output_file, 'w') as f:
                 f.write(eq_content)
-            
             print(f"Equilibrium callable constructed: {eq_output_file}")
         
         # Construct Scheil callable if constraint exists

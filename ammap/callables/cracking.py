@@ -138,7 +138,7 @@ def getCD(temperature, solidFraction, CDPoints = [0.7,0.98], numDataThreshold = 
     CDPoints (list): A list of CD points defaulting to [0.7, 0.98].
 
     Returns:
-    tuple: A tuple containing two lists - CD1 and CD2.
+    tuple: A tuple containing two lists - CD1 (srdg) and CD2 (iCSC).
 
     """
     CDPoints.sort()

@@ -87,6 +87,108 @@ nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nim
 
 For Windows and other platforms, you should consult [`nimpy`](https://github.com/yglukhov/nimpy) instructions.
 
+### YAML Input Schema Parsing (*beta*)
+
+AMMap supports **YAML format input** for human-readable definition of design spaces, constraints, and objectives. This feature enables users to configure complex multi-component alloy systems and their associated thermodynamic calculations through structured configuration files rather than programmatic setup.
+
+#### Key Features
+
+**Design Space Definition**: Define compositional spaces with elemental compositions, thermodynamic databases, and stitching relationships between different phase diagram regions.
+
+**Constraint Specification**: Set up multiple types of constraints including:
+- Equilibrium phase constraints (feasible, required, and infeasible phases)
+- Scheil-Gulliver solidification parameters
+- Liquid-to-crystal density limits
+- Additive manufacturing cracking susceptibility criteria
+
+**Path Planning Configuration**: Define start and end points for compositional path planning across the design space.
+
+#### Example YAML Structure
+
+YAML Example Documentation:
+
+- **`name`**: (required, string) Unique identifier for the overall task at hand (e.g., transition between alloy systems).
+- **`description`**: (optional, string) Short summary of the scenario or objective. Personal use only.
+- **`nDivisionsPerDimension`**: (required, int) Number of subdivisions per compositional axis for discretizing the design space.
+
+- **`constraints`**: (optional, list) List of rules applied during path planning.
+  - **`type`**: (required, string) Constraint category (e.g., equilibrium, solidification, cracking).
+  - For equilibrium phases:
+    - **`temperature`**: (required, float/int) Temperature (K) for phase equilibrium evaluation; if step_temperature is not defined, will be a singular equilibrium result. Otherwise this is the maximum temperature for equilibrium simulations.
+    - **`step_temperature`**: (optional, float/int) Temperature (K) by which to step by for creating a range of equilibrium results to investigate over.
+    -**`min_temperature`**: (optional, float/int) Temperature (K) at which to cut off considerations for equilibrium feasibility. Default is 600 K.
+    - **`pressure`**: (required, float/int) Pressure (atm or relevant units).
+    - **`feasiblePhases`**: (optional, list[string]) Allowed phases present at the equilibrium; if any other phases are present, the point will be deemed infeasible.
+    - **`infeasiblePhases`**: (optional, list[string]) Phases not allowed to be present at the equilibrium; any other phases will be allowed. TODO!
+    - **`requiredPhases`**: (optional, list[string]) Phases that have to be present at the equilibrium for the point to be feasible; any other phases are allowed to be present as well unless added to `infeasiblePhases`. TODO!
+  - For Scheil-Gulliver solidification:
+    - **`startTemperature`**: (required, float/int) Starting temperature for simulation.
+    - **`feasiblePhases`**: (optional, list[string]) Allowed phases present for feasibility; if other phases are present, the point will be deemed infeasible.
+    - **`step_temperature`**: (required, float/int) Temperature (K) by which to step in Scheil-Gulliver simulation, down to point where no liquid phase exists
+  - For AM cracking susceptibility:
+    - **`criteria`**: (required, list[string]) Models or criteria for assessing cracking risk.
+
+- **`elementalSpaces`**: (required, list) Defines available elemental composition spaces.
+  - **`name`**: (required, string) Name of the elemental space.
+  - **`elements`**: (required, list[string]) List of elements in the space.
+  - **`tdb`**: (required, string) Associated thermodynamic database file.
+
+- **`designSpaces`**: (required, list) Design spaces within each elemental space.
+  - **`name`**: (required, string) Name of the design space.
+  - **`elementalSpace`**: (required, string) Reference to the elemental space.
+  - **`components`**: (required, list[list[float]]) List of compositions (fractions of each element) for key points (e.g., alloys, pure elements).
+
+- **`pathPlan`**: (required, list) Sequence of steps or positions for path planning.
+  - **`designSpace`**: (required, string) Name of the referenced design space.
+  - **`position`** or **`index`**: (required, list[float] or list[int]) Location within the design space, as a composition vector (`position`) or index (`index`).
+
+This structure allows users to define multi-step path planning problems for alloy design, including constraints, composition spaces, and the planned path.
+
+
+```yaml
+name: "StainlessSteel316L_to_Ti64"
+description: "Path planning from SS316L to Ti-6Al-4V"
+nDivisionsPerDimension: 12
+
+constraints:
+  - type: equilibrium
+    temperature: 900
+    pressure: 1
+    feasiblePhases: [FCC_A1, BCC_A2, HCP_A3]
+  - type: scheil
+    startTemperature: 2500
+  - type: AM cracking susceptibility
+    criteria: [Kou, iCSC, sRDG, FR, CSC]
+
+elementalSpaces:
+  - name: SS_V
+    elements: [Ni, Cr, Fe, V]
+    tdb: Bobbio2021.tdb
+
+designSpaces:
+  - name: Ss_Cr_Ni
+    elementalSpace: SS_V
+    components:
+      - [0.096, 0.200, 0.704, 0]  # SS316L composition
+      - [0, 1, 0, 0]              # Pure Cr
+      - [1, 0, 0, 0]              # Pure Ni
+
+pathPlan:
+  - designSpace: Ss_Cr_Ni
+    position: [1, 0, 0, 0]
+  - designSpace: Ti64_Cr_V
+    index: [0, 1, 0, 0] 
+
+```
+
+#### Current Implementation Status
+
+- ✅ **Basic YAML parsing** for design spaces and constraints
+- ✅ **Constraint definition** for equilibrium and Scheil calculations
+- ✅ **Path planning** start/end point specification
+- 🔄 **Multi-database stitching** configuration
+- 🔄 **Advanced constraint types** (elastic moduli, etc.)
+- 🔄 **Comprehensive documentation** of all schema options
 
 ### CALPHAD Tools
 When you are done, you should also install [pycalphad](https://pycalphad.org/docs/latest/) and a forked version of a python package for [`scheil`](https://github.com/pycalphad/scheil) found [here](https://github.com/HUISUN24/scheil)
