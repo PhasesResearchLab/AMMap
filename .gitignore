@@ -15,6 +15,7 @@ htmldocs/
 !scheilmap.json
 *test*.ipynb
 *Test*.ipynb
+UPDATES.txt
 
 # Ignore files in subdirectories of ammap/callables; but not the ammap/callables directory itself
 #ammap/callables/*
