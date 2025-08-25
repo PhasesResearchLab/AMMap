@@ -210,8 +210,8 @@ def hybrid_scheil_callable(elP):
             eq_results.append({{
                 'Temperature': float(T_eq),
                 'PhaseFractions': integrated_phases,
-                'SuccessfulCalculations': successful_calcs,
-                'TotalLocalCompositions': len(local_compositions)
+                # 'SuccessfulCalculations': successful_calcs,
+                # 'TotalLocalCompositions': len(local_compositions)
             }})
     
     return {{
