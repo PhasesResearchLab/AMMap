@@ -4,18 +4,6 @@ import hashlib
 from ruamel.yaml import YAML
 from pathlib import Path
 
-# name: hybrid_scheil_eq_callables
-# callables:
-#   - name: example_callable
-#     tdb: "path/to/database.tdb"
-#     elements: ["AL", "CU", "MG"]
-#     liquid_phase: "LIQUID"
-#     start_temp: 1000
-#     step_temp: 10
-#     temp_min: 500
-#     temp_max: 1000
-#     temp_step: 50
-
 def construct_callables(yaml_file):
     yaml = YAML(typ='safe')
     with open(yaml_file, 'r') as f:
@@ -31,23 +19,35 @@ def construct_callables(yaml_file):
         Path(f"{output_dir}/__init__.py").touch()
     
     # Read the hybrid Scheil-equilibrium template file
-    with open('ammap/templates/hybrid_scheil_eq_callable_template_perp.py', 'r') as f:
+    with open('ammap/templates/hybrid_scheil_eq_callable_template.py', 'r') as f:
         template = f.read()
     
-    # Process each callable configuration in the YAML file
-    for callable_config in data['callables']:
-        name = callable_config['name']
-        tdb_file = callable_config['tdb']
-        elements = callable_config['elements']
-        liquid_phase = callable_config['liquid_phase']
-        start_temp = callable_config['start_temp']
-        step_temp = callable_config['step_temp']
-        temp_min = callable_config['temp_min']
-        temp_max = callable_config['temp_max']
-        temp_step = callable_config['temp_step']
+    # Find hybrid-scheil constraint
+    hybrid_constraint = None
+    for constraint in data['constraints']:
+        if constraint['type'] == 'hybrid-scheil':
+            hybrid_constraint = constraint
+            break
+    
+    if not hybrid_constraint:
+        raise ValueError("No hybrid-scheil constraint found in YAML")
+    
+    # Process each elemental space
+    for elem_space in data['elementalSpaces']:
+        name = elem_space['name']
+        tdb_file = elem_space['tdb']
+        elements = sorted(elem_space['elements'])  
         
-        # Generate a unique identifier for the callable
-        unique_id = hashlib.sha256(f"{name}_{tdb_file}_{elements}".encode()).hexdigest()[:8]
+        # Extract parameters from hybrid constraint
+        liquid_phase = hybrid_constraint['liquidPhase']
+        start_temp = hybrid_constraint['startTemperature']
+        step_temp = hybrid_constraint['step_temperature']
+        temp_min = hybrid_constraint['temp_min']
+        temp_max = hybrid_constraint['temp_max']
+        temp_step = hybrid_constraint['temp_step']
+        
+        # Generate a unique identifier based on elements and TDB file 
+        unique_id = hashlib.sha256(f"{'-'.join(elements)}_{tdb_file}".encode()).hexdigest()[:8]
         
         # Substitute placeholders in the template
         content = template.format(
@@ -61,12 +61,12 @@ def construct_callables(yaml_file):
             temp_step=temp_step
         )
         
-        # Write the resulting script to a new file
-        output_file = f"{output_dir}/{name}_{unique_id}.py"
+        # Write the resulting script to a new file 
+        output_file = f"{output_dir}/hybrid_callable_{name}_{unique_id}.py"
         with open(output_file, 'w') as f:
             f.write(content)
         
-        print(f"Callable constructed: {output_file}")
+        print(f"Hybrid callable constructed: {output_file}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:

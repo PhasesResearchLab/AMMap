@@ -16,6 +16,7 @@ htmldocs/
 *test*.ipynb
 *Test*.ipynb
 UPDATES.txt
+*.zip
 
 # Ignore files in subdirectories of ammap/callables; but not the ammap/callables directory itself
 #ammap/callables/*

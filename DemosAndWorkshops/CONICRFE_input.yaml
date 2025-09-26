@@ -1,0 +1,71 @@
+name: CoNiCrFe2
+nDivisionsPerDimension: 6
+elementalSpaces:
+ 
+  - name: CoNiCrFe
+    tdb: "ammap/databases/Co-Cr-Fe-Ni-V_choi2019.TDB"
+
+    elements: [Co,Ni,Cr,Fe]
+
+
+designSpaces:
+  - name: CoNiCrFe
+    elementalSpace: CoNiCrFe
+    
+    components:
+      - [1, 0, 0, 0]  # Co
+      - [0, 1, 0, 0]  # Ni
+      - [0, 0, 1, 0]  # Cr
+      - [0, 0, 0, 1]  # Fe
+    # Consider Possibilities of designSpace limited constraints
+    #constraints:
+    #  - type: equilibrium
+    #    temperature: 1000
+    #    pressure: 101325
+    #    feasiblePhases:
+    #     - FCC_A1
+
+
+#globalConstraints:
+constraints:
+  - type: equilibrium
+    temperature: [2500, 50, 800]  # [maxT, step_temperature, minT]
+    pressure: 101325
+    feasiblePhases: 
+     - FCC_A1
+     - BCC_A2
+     - HCP_A3
+    step_temperature: 50
+    min_temperature: 800
+
+  - type: scheil
+    startTemperature: 2500
+    liquidPhase: 'LIQUID'
+    step_temperature: 10
+    feasiblePhases: 
+     - FCC_A1
+     - BCC_A2
+     - HCP_A3
+  - type: cracking
+    criteria:
+     - Kou
+     - iCSC
+     - sRDG
+     - FR
+     - CSC
+  # - type: pathAlgorithm
+  #   name: DijkstraFinder()
+# Dictionary of designSpaces with their respective constraints
+# {
+#   space1: [const1, const2],
+#   space2: [const1],
+# …
+# }
+
+pathPlan:
+  - designSpace: CoNiCrFe
+    composition: [0, 0.60, 0.20, 0.20]  # Starting composition: Co0 Ni60 Cr20 Fe20
+  - designSpace: CoNiCrFe
+    composition: [0.63, 0.10, 0.25, 0.02]    # Ending composition: Co63 Ni10 Cr25 Fe2
+  - criteria: Kou
+    penalty: 20
