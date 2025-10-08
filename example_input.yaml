@@ -1,0 +1,79 @@
+name: "StainlessSteel316L_to_Ti64"
+description: "Path planning across several ternary phase diagrams from Stainless Steel (Ni9.6 Cr19.9 Fe70.5) to Ti-6Al-4V (Ti0.862 Al0.102 V0.036)"
+nDivisionsPerDimension: 12
+constraints:
+  - type: equilibrium phases
+    temperature: 900
+    pressure: 1
+    feasiblePhases: 
+     - FCC_A1
+     - BCC_A2
+     - HCP_A3
+    requiredPhases:
+     - BCC_A2
+    infeasiblePhases:
+     - LIQUID
+     - SIGMA
+  - type: scheil-gulliver solidification
+    startTemperature: 2500
+    feasiblePhases:
+     - FCC_A1
+     - BCC_A2
+     - HCP_A3
+  - type: LC density
+    max: 11.5
+  - type: AM cracking susceptibility 
+    criteria:
+     - Kou
+     - iCSC
+     - sRDG
+     - FR
+     - CSC
+
+elementalSpaces:
+  - name: SS_V
+    elements:
+      - Ni
+      - Cr
+      - Fe
+      - V
+    tdb: Bobbio2021.tdb
+  - name: Ti64_Cr
+    elements:
+      - Ti
+      - Al
+      - V
+      - Cr
+    tdb: MyTitaniumAlloysDatabase.tdb
+
+designSpaces:
+  - name: Ss_Cr_Ni
+    elementalSpace: SS_V
+    components:
+      - [0.096,0.200, 0.704, 0]  # SS
+      - [0, 1, 0, 0]             # Cr
+      - [1, 0, 0, 0]             # Ni
+    stitch:
+     - edge: Cr-Ni
+       targetDesignSpace: Ni_Cr_V # Must have Cr-Ni
+  - name: Ni_Cr_V
+    elementalSpace: SS_V
+    components:
+      - [1, 0, 0, 0]             # Ni
+      - [0, 1, 0, 0]             # Cr
+      - [0, 0, 0, 1]             # V
+    stitch:
+      - edge: Cr-V
+        targetDesignSpace: Ti64_Cr_V
+  - name: Ti64_Cr_V
+    elementalSpace: Ti64_Cr
+    components:
+      - [0.862, 0.102, 0.036, 0] # Ti64
+      - [0, 0, 1, 0]             # V
+      - [0, 0, 0, 1]             # Cr
+
+pathPlan:
+  - designSpace: SS
+    position: [12, 0, 0]
+  - designSpace: Ti64_Cr_V
+    index: -1 

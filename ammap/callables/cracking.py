@@ -130,7 +130,7 @@ def getIntegral(temperature, solidFraction):
 
 def getCD(temperature, solidFraction, CDPoints = [0.7,0.98], numDataThreshold = 10):
     """
-    Calculate CD1 and CD2 values based on temperature, solid fraction, and CDPoints.
+    Calculate srdg and iCSC values based on temperature, solid fraction, and CDPoints.
 
     Parameters:
     temperature (list): A list of temperature values.
@@ -138,12 +138,12 @@ def getCD(temperature, solidFraction, CDPoints = [0.7,0.98], numDataThreshold = 
     CDPoints (list): A list of CD points defaulting to [0.7, 0.98].
 
     Returns:
-    tuple: A tuple containing two lists - CD1 and CD2.
+    tuple: A tuple containing two lists - CD1 (srdg) and CD2 (iCSC).
 
     """
     CDPoints.sort()
-    CD1 = []
-    CD2 = []
+    CD1 = [] # sRDG
+    CD2 = [] # iCSC
     fs_0 = CDPoints[0]
     fs_co = CDPoints[1]
     for i in range(len(temperature)):
