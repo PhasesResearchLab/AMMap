@@ -79,6 +79,4 @@ def equilibrium_callable(elP):
     return output
 
 if __name__ == "__main__":
-    # Test example (remove or comment for production)
-    # print(equilibrium_callable([0.25, 0.25, 0.25, 0.25]))
     pass
