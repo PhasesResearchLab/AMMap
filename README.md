@@ -102,6 +102,7 @@ Now, you can update the `nimplex` submodule repository and compile it for `AMMap
 git submodule update --init --recursive
 nim c --d:release --threads:on --app:lib --out:nimplex.so nimplex/src/nimplex.nim
 nim c --d:release --threads:on --app:lib --out:utils/plotting.so nimplex/src/nimplex/utils/plotting.nim
+nim c --d:release --threads:on --app:lib --out:utils/stitching.so nimplex/src/nimplex/utils/stitching.nim
 ```
 
 For Windows and other platforms, you should consult [`nimpy`](https://github.com/yglukhov/nimpy) instructions.
