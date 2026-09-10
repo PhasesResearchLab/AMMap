@@ -6,7 +6,7 @@ RUN apt-get update \
     && conda install -y -c conda-forge python=3.11 liblapack jupyter numpy pandas plotly scikit-learn \
     && nimble install -y arraymancer nimpy \
     && pip install pqam-rmsadtandoc2023 pathfinding igraph \
-    && pip install scheil \
-    && pip install pycalphad==0.11
+    && pip install scheil==0.3.0 \
+    && pip install pycalphad==0.11.2
 
 WORKDIR /workspace

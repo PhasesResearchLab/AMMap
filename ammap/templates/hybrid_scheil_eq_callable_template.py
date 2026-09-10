@@ -3,8 +3,17 @@ import pandas as pd
 import math
 from scheil import simulate_scheil_solidification
 from pycalphad import Database, equilibrium, variables as v
-from pycalphad.core.utils import filter_phases, instantiate_models, unpack_components
-from pycalphad.codegen.callables import build_phase_records
+from pycalphad.core.utils import filter_phases, instantiate_models
+try:
+    from pycalphad.core.utils import unpack_species as _unpack_comps
+except ImportError:
+    from pycalphad.core.utils import unpack_components as _unpack_comps
+try:
+    from pycalphad.codegen.callables import build_phase_records as _build_phase_records
+except ImportError:
+    from pycalphad.codegen.phase_record_factory import PhaseRecordFactory
+    def _build_phase_records(dbf, comps, phases, statevars, models):
+        return PhaseRecordFactory(dbf, comps, statevars, models)
 
 dbf = Database("{dbf_path}")
 
@@ -12,13 +21,13 @@ T = {start_temp}
 elementalSpaceComponents = {elements}  # Ensure this is formatted as a Python list
 phases = list(set(dbf.phases.keys()))
 comps = [s.upper() for s in elementalSpaceComponents] + ['VA']
-phases_filtered = filter_phases(dbf, unpack_components(dbf, comps), phases)
+phases_filtered = filter_phases(dbf, _unpack_comps(dbf, comps), phases)
 models = instantiate_models(dbf, comps, phases_filtered)
 
-phase_records = build_phase_records(
+phase_records = _build_phase_records(
     dbf, comps, phases_filtered,
     {{v.N, v.P, v.T}},
-    models=models
+    models
 )
 
 liquid_phase_name = '{liquid_phase}'
@@ -47,7 +56,11 @@ def hybrid_scheil_callable(elP):
     # Extract solidification path data
     scheilT = sol_res.temperatures
     Sfrac = sol_res.fraction_solid
-    x_phases = sol_res.x_phases  # Phase compositions
+    x_phases = getattr(sol_res, 'x_phases', None)
+    if x_phases is None:
+        phase_comp = getattr(sol_res, 'phase_compositions', {})
+        liquid_name = getattr(sol_res, 'liquid_phase_name', liquid_phase_name)
+        x_phases = {ph: comp for ph, comp in phase_comp.items() if ph != liquid_name}
     cum_phase_amounts = sol_res.cum_phase_amounts  # Cumulative phase amounts
     
     # Calculate local compositions with HIGH DENSITY (~200 solid fraction points)

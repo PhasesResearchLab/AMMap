@@ -1,7 +1,16 @@
 from scheil import simulate_scheil_solidification
 from pycalphad import Database, variables as v
-from pycalphad.core.utils import instantiate_models, filter_phases, unpack_components
-from pycalphad.codegen.callables import build_phase_records
+from pycalphad.core.utils import instantiate_models, filter_phases
+try:
+    from pycalphad.core.utils import unpack_species as _unpack_comps
+except ImportError:
+    from pycalphad.core.utils import unpack_components as _unpack_comps
+try:
+    from pycalphad.codegen.callables import build_phase_records as _build_phase_records
+except ImportError:
+    from pycalphad.codegen.phase_record_factory import PhaseRecordFactory
+    def _build_phase_records(dbf, comps, phases, statevars, models):
+        return PhaseRecordFactory(dbf, comps, statevars, models)
 import pandas as pd
 import math
 
@@ -11,9 +20,9 @@ elementalSpaceComponents = {elements}
 
 phases = list(set(dbf.phases.keys()))
 comps = [s.upper() for s in elementalSpaceComponents] + ['VA']
-phases_filtered = filter_phases(dbf, unpack_components(dbf, comps), phases)
+phases_filtered = filter_phases(dbf, _unpack_comps(dbf, comps), phases)
 models = instantiate_models(dbf, comps, phases_filtered)
-phase_records = build_phase_records(dbf, comps, phases_filtered, {{v.N, v.P, v.T}}, models=models)
+phase_records = _build_phase_records(dbf, comps, phases_filtered, {{v.N, v.P, v.T}}, models)
 
 liquid_phase_name = '{liquid_phase_name}'
 step_temperature = {step_temperature}
@@ -37,7 +46,11 @@ def scheil_callable(elP):
     Sfrac = sol_res.fraction_solid
     scheilT = sol_res.temperatures
     solT = scheilT[-1]
-    ddict = sol_res.x_phases
+    ddict = getattr(sol_res, 'x_phases', None)
+    if ddict is None:
+        phase_comp = getattr(sol_res, 'phase_compositions', {})
+        liquid_name = getattr(sol_res, 'liquid_phase_name', liquid_phase_name)
+        ddict = {ph: comp for ph, comp in phase_comp.items() if ph != liquid_name}
     
     keys_to_remove_from_ddict = []
     for ddict_key, dict_value in ddict.items():
@@ -50,7 +63,7 @@ def scheil_callable(elP):
     for key in keys_to_remove_from_ddict:
         del ddict[key]
     
-    yPhase = sol_res.Y_phases
+    yPhase = getattr(sol_res, 'Y_phases', None)
     liqT = next((temp for temp, frac in zip(scheilT, Lfrac) if frac < 1), scheilT[-1])
     
     return {{

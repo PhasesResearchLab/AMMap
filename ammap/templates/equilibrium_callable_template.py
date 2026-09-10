@@ -1,6 +1,15 @@
 from pycalphad import Database, equilibrium, variables as v
-from pycalphad.core.utils import instantiate_models, filter_phases, unpack_components
-from pycalphad.codegen.callables import build_phase_records
+from pycalphad.core.utils import instantiate_models, filter_phases
+try:
+    from pycalphad.core.utils import unpack_species as _unpack_comps
+except ImportError:
+    from pycalphad.core.utils import unpack_components as _unpack_comps
+try:
+    from pycalphad.codegen.callables import build_phase_records as _build_phase_records
+except ImportError:
+    from pycalphad.codegen.phase_record_factory import PhaseRecordFactory
+    def _build_phase_records(dbf, comps, phases, statevars, models):
+        return PhaseRecordFactory(dbf, comps, statevars, models)
 import numpy as np
 import math
 
@@ -15,10 +24,10 @@ comps = [s.upper() for s in elementalSpaceComponents] + ['VA']
 # Limit phases to feasible_phases if specified
 feasible_phases = {feasible_phases}
 # Calculate equilibrium for ALL phases (don't filter here)
-phases_filtered = [p for p in filter_phases(dbf, unpack_components(dbf, comps), phases)]
+phases_filtered = [p for p in filter_phases(dbf, _unpack_comps(dbf, comps), phases)]
 
 models = instantiate_models(dbf, comps, phases_filtered)
-phase_records = build_phase_records(dbf, comps, phases_filtered, {{v.N, v.P, v.T}}, models=models)
+phase_records = _build_phase_records(dbf, comps, phases_filtered, {{v.N, v.P, v.T}}, models)
 
 expected_conds = [v.T] + [v.X(el) for el in comps[:-2]]
 default_conds = {{v.P: {pressure}, v.N: 1.0}}

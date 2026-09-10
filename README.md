@@ -213,8 +213,8 @@ pathPlan:
 When you are done, you should also install [pycalphad](https://pycalphad.org/docs/latest/) and a forked version of a python package for [`scheil`](https://github.com/pycalphad/scheil) found [here](https://github.com/HUISUN24/scheil)
 
 ```shell
-pip install git+https://github.com/HUISUN24/scheil.git
-pip install pycalphad
+pip install scheil==0.3.0
+pip install pycalphad==0.11.2
 ```
 
 ### Optional Pathfinding used in Example
